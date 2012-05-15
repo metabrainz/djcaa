@@ -54,7 +54,7 @@ sub _nuke {
 
     for my $file (@files) {
         $lwp->request(
-            Net::Amazon::S3::Request::DeleteObject(
+            Net::Amazon::S3::Request::DeleteObject->new(
                 s3 => $self->s3,
                 bucket => $bucket,
                 key => $file
