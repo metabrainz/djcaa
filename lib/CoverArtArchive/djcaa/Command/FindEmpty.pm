@@ -36,9 +36,10 @@ sub execute {
         $response = $lwp->request($http_request);
 
         my $bucket_xp = XML::XPath->new( xml => $response->decoded_content );
-        my @interesting_items =
-            grep { $_ !~ /^(index.json|_thumb.jpg)/ }
-                map { $_->string_value } $bucket_xp->findnodes(".//Contents/Key");
+        my @items = map { $_->string_value } $bucket_xp->findnodes(".//Contents/Key")
+            or next;
+
+        my @interesting_items = grep { $_ !~ /^(index.json|_thumb.jpg)/ } @items;
 
         if (@interesting_items == 0) {
             say $bucket;
