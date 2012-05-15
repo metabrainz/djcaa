@@ -1,0 +1,7 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use CoverArtArchive::djcaa;
+
+$| = 1;
+CoverArtArchive::djcaa->run;
